@@ -40,5 +40,11 @@ public class Record implements IRecord {
 	public Double getValue() {
 		return this.value;
 	}
-
+	
+	@Override
+	public boolean equals(Object o) {
+		Record record = (Record) o;
+		return this.getDomain().equals(record.getDomain()) && this.getCategory().equals(record.getCategory()) && this.getSubCategory().equals(record.getSubCategory()) && this.getValue() == record.getValue();
+	}
+	
 }

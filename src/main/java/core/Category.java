@@ -20,4 +20,9 @@ public class Category implements ICategory {
 		return this.name;
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		Category category = (Category) o;
+		return this.getName().equalsIgnoreCase(category.getName());
+	}
 }

@@ -10,6 +10,7 @@ package core;
 public enum XmlNodes {
 
 	CONFIG("configuration"),
+	DOMFOLDER("dossier"),
 	DOMAINS("domaines"),
 	DOMAIN("domaine"),
 	CATS("categories"),

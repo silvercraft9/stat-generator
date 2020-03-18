@@ -33,5 +33,11 @@ public class Field implements IField {
 	public Integer getRank() {
 		return this.rank;
 	}
+	
+	@Override
+	public boolean equals(Object o) {
+		Field field = (Field) o;
+		return this.getName().equalsIgnoreCase(field.getName()) && this.getType().equalsIgnoreCase(field.getType()) && this.getRank() == field.getRank();
+	}
 
 }

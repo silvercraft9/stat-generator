@@ -27,4 +27,9 @@ public class SubCategory implements ISubCategory {
 		return this.parent;
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		SubCategory subcat = (SubCategory) o;
+		return this.getName().equalsIgnoreCase(subcat.getName()) && this.getParent().equals(subcat.getParent());
+	}
 }

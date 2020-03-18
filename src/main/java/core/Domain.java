@@ -27,4 +27,9 @@ public class Domain implements IDomain {
 		return this.type;
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		Domain domain = (Domain) o;
+		return this.getName().equalsIgnoreCase(domain.getName()) && this.getType().equalsIgnoreCase(domain.getType());
+	}
 }

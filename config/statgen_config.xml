@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+<dossier>dossier_test</dossier>
+<domaines>
+	<domaine>
+		<nom>Etablissement1</nom>
+		<type>brut</type>
+	</domaine>
+	<domaine>
+		<nom>Etablissement2</nom>
+		<type>brut</type>
+	</domaine>
+	<domaine>
+		<nom>Etablissement3</nom>
+		<type>precalcule</type>
+	</domaine>
+	<domaine>
+		<nom>Etablissement4</nom>
+		<type>precalcule</type>
+	</domaine>
+</domaines>
+<categories>
+	<categorie>CategorieA</categorie>
+	<categorie>CategorieB</categorie>
+	<categorie>CategorieC</categorie>
+</categories>
+<sous_categories>
+	<sous_categorie>
+		<nom>Sous_Categorie1</nom>
+		<categorie>CategorieA</categorie>
+	</sous_categorie>
+	<sous_categorie>
+		<nom>Sous_Categorie2</nom>
+		<categorie>CategorieA</categorie>
+	</sous_categorie>
+	<sous_categorie>
+		<nom>Sous_Categorie3</nom>
+		<categorie>CategorieB</categorie>
+	</sous_categorie>
+	<sous_categorie>
+		<nom>Sous_Categorie4</nom>
+		<categorie>CategorieC</categorie>
+	</sous_categorie>
+	<sous_categorie>
+		<nom>Sous_Categorie5</nom>
+		<categorie>CategorieC</categorie>
+	</sous_categorie>
+	<sous_categorie>
+		<nom>Sous_Categorie6</nom>
+		<categorie>CategorieC</categorie>
+	</sous_categorie>
+</sous_categories>
+<champs>
+	<champ>
+		<nom>ChampX</nom>
+		<type>brut</type>
+		<ordre>1</ordre>
+	</champ>
+	<champ>
+		<nom>ChampY</nom>
+		<type>brut</type>
+		<ordre>2</ordre>
+	</champ>
+	<champ>
+		<nom>ChampZ</nom>
+		<type>brut</type>
+		<ordre>3</ordre>
+	</champ>
+	<champ>
+		<nom>ChampN</nom>
+		<type>precalcule</type>
+		<ordre>1</ordre>
+	</champ>
+	<champ>
+		<nom>ChampO</nom>
+		<type>precalcule</type>
+		<ordre>2</ordre>
+	</champ>
+	<champ>
+		<nom>ChampP</nom>
+		<type>precalcule</type>
+		<ordre>3</ordre>
+	</champ>
+</champs>
+</configuration>
