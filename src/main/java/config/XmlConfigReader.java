@@ -53,20 +53,15 @@ public class XmlConfigReader implements IConfigReader {
 		this.fields = new ArrayList<IField>();
 	}
 	
-	public void init() {
-		Document doc = this.document;
-		final Element config = (Element) doc.getElementsByTagName(XmlNodes.CONFIG.toString()).item(0);
-		
-		//Recover the folder with all files containing records
-		
-		final NodeList domainFolderList = config.getElementsByTagName(XmlNodes.DOMFOLDER.toString());
+	protected void initDomainFolder(Element domainFolderElem) {
+		final NodeList domainFolderList = domainFolderElem.getElementsByTagName(XmlNodes.DOMFOLDER.toString());
 		final Element domainFolderNode = (Element) domainFolderList.item(0);
 		String domainFolderName = domainFolderNode.getTextContent();
 		this.domainFolder = domainFolderName;
-		
-		//Recover all domains
-		final Element domainNodes = (Element) config.getElementsByTagName(XmlNodes.DOMAINS.toString());
-		final NodeList domainList = domainNodes.getElementsByTagName(XmlNodes.DOMAIN.toString());
+	}
+	
+	protected void initDomains(Element domainsElem) {
+		final NodeList domainList = domainsElem.getElementsByTagName(XmlNodes.DOMAIN.toString());
 		int domainLength = domainList.getLength();
 		for(int i = 0; i < domainLength; i++) {
 			final Element domainNode = (Element) domainList.item(i);
@@ -79,10 +74,10 @@ public class XmlConfigReader implements IConfigReader {
 			IDomain domain = new Domain(domainName, domainType);
 			this.domains.add(domain);
 		}
-		
-		//Recover all categories
-		final Element categoriesNodes = (Element) config.getElementsByTagName(XmlNodes.CATS.toString());
-		final NodeList categoriesList = categoriesNodes.getElementsByTagName(XmlNodes.CAT.toString());
+	}
+	
+	protected void initCategories(Element categoriesElem) {
+		final NodeList categoriesList = categoriesElem.getElementsByTagName(XmlNodes.CAT.toString());
 		int categorieLength = categoriesList.getLength();
 		for(int i = 0; i < categorieLength; i++) {
 			final Element categorieNode = (Element) categoriesList.item(i);
@@ -92,10 +87,10 @@ public class XmlConfigReader implements IConfigReader {
 			ICategory category = new Category(categorieName);
 			this.categories.add(category);
 		}
-		
-		//Recover all subcategories
-		final Element subcatNodes = (Element) config.getElementsByTagName(XmlNodes.SUBCATS.toString());
-		final NodeList subcatList = subcatNodes.getElementsByTagName(XmlNodes.SUBCAT.toString());
+	}
+	
+	protected void initSubCategories(Element subCatsElem) {
+		final NodeList subcatList = subCatsElem.getElementsByTagName(XmlNodes.SUBCAT.toString());
 		int subcatLength = subcatList.getLength();
 		for(int i = 0; i < subcatLength; i++) {
 			final Element subcatNode = (Element) subcatList.item(i);
@@ -110,10 +105,10 @@ public class XmlConfigReader implements IConfigReader {
 			
 			this.subcats.add(subCategory);
 		}
-		
-		//Recover all fields
-		final Element fieldNodes = (Element) config.getElementsByTagName(XmlNodes.FIELDS.toString());
-		final NodeList fieldList =  fieldNodes.getElementsByTagName(XmlNodes.FIELD.toString());
+	}
+	
+	protected void initFields(Element fieldsElem) {
+		final NodeList fieldList =  fieldsElem.getElementsByTagName(XmlNodes.FIELD.toString());
 		int  fieldLength =  fieldList.getLength();
 		for(int i = 0; i <  fieldLength; i++) {
 			final Element  fieldNode = (Element) fieldList.item(i);
@@ -129,6 +124,31 @@ public class XmlConfigReader implements IConfigReader {
 			
 			this.fields.add(field);
 		}
+	}
+	
+	public void init() {
+		Document doc = this.document;
+		final Element config = (Element) doc.getElementsByTagName(XmlNodes.CONFIG.toString()).item(0);
+		
+		//Recover the folder with all files containing records
+		this.initDomainFolder(config);
+		
+		//Recover all domains
+		final Element domainsNode = (Element) config.getElementsByTagName(XmlNodes.DOMAINS.toString()).item(0);
+		this.initDomains(domainsNode);
+		
+		
+		//Recover all categories
+		final Element categoriesNode = (Element) config.getElementsByTagName(XmlNodes.CATS.toString()).item(0);
+		this.initCategories(categoriesNode);
+		
+		//Recover all subcategories
+		final Element subCatsNode = (Element) config.getElementsByTagName(XmlNodes.SUBCATS.toString()).item(0);
+		this.initSubCategories(subCatsNode);
+		
+		//Recover all fields
+		final Element fieldsNode = (Element) config.getElementsByTagName(XmlNodes.FIELDS.toString()).item(0);
+		this.initFields(fieldsNode);
 	}
 	
 	/**

@@ -23,6 +23,7 @@ class XmlConfigReaderTest {
 	static void setUpBeforeClass() throws Exception {
 		confReader = new XmlConfigReader();
 		confReader.init();
+		
 	}
 
 	/**

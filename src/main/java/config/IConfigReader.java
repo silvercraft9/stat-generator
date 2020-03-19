@@ -39,4 +39,5 @@ public interface IConfigReader {
 	 * @return  The list of all fields to consider
 	 */
 	public ArrayList<IField> getFields();
+	
 }
