@@ -76,10 +76,5 @@
 		<type>precalcule</type>
 		<ordre>2</ordre>
 	</champ>
-	<champ>
-		<nom>ChampP</nom>
-		<type>precalcule</type>
-		<ordre>3</ordre>
-	</champ>
 </champs>
 </configuration>
