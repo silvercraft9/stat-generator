@@ -11,7 +11,7 @@ import core.IRecord;
  * @author ro6k4
  *
  */
-public interface IFileReader {
+public interface IFileParser {
 	
 	/**
 	 * 
