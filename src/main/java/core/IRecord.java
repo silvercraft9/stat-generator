@@ -29,6 +29,12 @@ public interface IRecord {
 	
 	/**
 	 * 
+	 * @return The field associated to the record
+	 */
+	public IField getField();
+	
+	/**
+	 * 
 	 * @return The value associated to the record
 	 */
 	public Double getValue();
