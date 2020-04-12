@@ -38,5 +38,4 @@ public interface IRecord {
 	 * @return The value associated to the record
 	 */
 	public Double getValue();
-
 }

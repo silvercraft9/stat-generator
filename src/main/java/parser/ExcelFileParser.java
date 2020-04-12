@@ -158,7 +158,6 @@ public class ExcelFileParser implements IFileParser {
 						IField field = fields.get(i);
 						Double value = row.getCell(fieldColumns.get(fieldName)).getNumericCellValue();
 						IRecord record = new Record(this.domain, category, subCategory, field, value);
-						System.out.println(record.toString());
 						result.add(record);
 					}
 				}
