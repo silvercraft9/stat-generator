@@ -18,6 +18,12 @@ public interface IRecorderCollection {
 	
 	/**
 	 * 
+	 * @param record a record to add in the collection
+	 */
+	public void addRecord(IRecord record);
+	
+	/**
+	 * 
 	 * @param domain the domain to consider
 	 * @return This method returns all records associated to this domain
 	 */
