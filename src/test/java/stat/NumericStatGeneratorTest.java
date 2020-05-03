@@ -28,8 +28,10 @@ import parser.ExcelFileParser;
 class NumericStatGeneratorTest {
 
 	private static ExcelFileParser parser1;
+	private static ExcelFileParser parser2;
 	
 	private static IDomain domain1;
+	private static IDomain domain2;
 	
 	private static ICategory categoryA;
 	private static ICategory categoryB;
@@ -56,7 +58,13 @@ class NumericStatGeneratorTest {
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
 		domain1 = new Domain("Etablissement1", "brut");
+		domain2 = new Domain("Etablissement2", "brut");
+		
 		parser1 = new ExcelFileParser(domain1, "dossier_test/Etablissement1.xlsx");
+		parser2 = new ExcelFileParser(domain2, "dossier_test/Etablissement2.xlsx");
+		
+		collection = new NumericRecordCollection();
+		
 		categoryA = new Category("categoryA");
 		categoryB = new Category("categoryB");
 		categoryC = new Category("categoryC");
@@ -83,12 +91,19 @@ class NumericStatGeneratorTest {
 		fields.add(fieldY);
 		fields.add(fieldZ);
 		
-		ArrayList<IRecord> rawRecords = parser1.getRecordsPerSubCategory(subcats, fields);
+		ArrayList<IRecord> rawRecords1 = parser1.getRecordsPerSubCategory(subcats, fields);
 		
-		int nbRecords = rawRecords.size();
-		collection = new NumericRecordCollection();
-		for(int i = 0; i < nbRecords; i++) {
-			IRecord record = rawRecords.get(i);
+		int nbRecords1 = rawRecords1.size();
+		for(int i = 0; i < nbRecords1; i++) {
+			IRecord record = rawRecords1.get(i);
+			collection.addRecord(record);
+		}
+		
+		ArrayList<IRecord> rawRecords2 = parser2.getRecordsPerSubCategory(subcats, fields);
+		
+		int nbRecords2 = rawRecords2.size();
+		for(int i = 0; i < nbRecords2; i++) {
+			IRecord record = rawRecords2.get(i);
 			collection.addRecord(record);
 		}
 		
@@ -102,11 +117,11 @@ class NumericStatGeneratorTest {
 	final void testGetSumForCategoryAndField() {
 		ArrayList<IRecord> records = collection.getAllRecordsForCategory(categoryC);
 		Double actual1 = generator.getSumForCategoryAndField(records, categoryC, fieldX);
-		Double expected1 = 39.0;
+		Double expected1 = 108.0;
 		Double actual2 = generator.getSumForCategoryAndField(records, categoryC, fieldY);
-		Double expected2 = 42.0;
+		Double expected2 = 114.0;
 		Double actual3 = generator.getSumForCategoryAndField(records, categoryC, fieldZ);
-		Double expected3 = 45.0;
+		Double expected3 = 120.0;
 		assertEquals(expected1, actual1);
 		assertEquals(expected2, actual2);
 		assertEquals(expected3, actual3);
@@ -119,11 +134,11 @@ class NumericStatGeneratorTest {
 	final void testGetAvgForCategoryAndField() {
 		ArrayList<IRecord> records = collection.getAllRecordsForCategory(categoryC);
 		Double actual1 = generator.getAvgForCategoryAndField(records, categoryC, fieldX);
-		Double expected1 = 13.0;
+		Double expected1 = 18.0;
 		Double actual2 = generator.getAvgForCategoryAndField(records, categoryC, fieldY);
-		Double expected2 = 14.0;
+		Double expected2 = 19.0;
 		Double actual3 = generator.getAvgForCategoryAndField(records, categoryC, fieldZ);
-		Double expected3 = 15.0;
+		Double expected3 = 20.0;
 		assertEquals(expected1, actual1);
 		assertEquals(expected2, actual2);
 		assertEquals(expected3, actual3);
@@ -134,7 +149,17 @@ class NumericStatGeneratorTest {
 	 */
 	@Test
 	final void testGetSumForDomainAndCategoryAndField() {
-		fail("Not yet implemented");
+		ArrayList<IRecord> records = collection.getAllRecordsForCategory(categoryC);
+		Double actual1 = generator.getSumForDomainAndCategoryAndField(records, domain1, categoryC, fieldX);
+		Double expected1 = 39.0;
+		Double actual2 = generator.getSumForDomainAndCategoryAndField(records, domain1, categoryC, fieldY);
+		Double expected2 = 42.0;
+		Double actual3 = generator.getSumForDomainAndCategoryAndField(records, domain1, categoryC, fieldZ);
+		Double expected3 = 45.0;
+		//Can be completed with additional tests
+		assertEquals(expected1, actual1);
+		assertEquals(expected2, actual2);
+		assertEquals(expected3, actual3);
 	}
 
 	/**
@@ -142,15 +167,35 @@ class NumericStatGeneratorTest {
 	 */
 	@Test
 	final void testGetAvgForDomainAndCategoryAndField() {
-		fail("Not yet implemented");
+		ArrayList<IRecord> records = collection.getAllRecordsForCategory(categoryC);
+		Double actual1 = generator.getAvgForDomainAndCategoryAndField(records, domain1, categoryC, fieldX);
+		Double expected1 = 13.0;
+		Double actual2 = generator.getAvgForDomainAndCategoryAndField(records, domain1, categoryC, fieldY);
+		Double expected2 = 14.0;
+		Double actual3 = generator.getAvgForDomainAndCategoryAndField(records, domain1, categoryC, fieldZ);
+		Double expected3 = 15.0;
+		//Can be completed with additional tests
+		assertEquals(expected1, actual1);
+		assertEquals(expected2, actual2);
+		assertEquals(expected3, actual3);
 	}
 
 	/**
-	 * Test method for {@link stat.NumericStatGenerator#getStdDrvForDomainAndCategoryAndField(java.util.ArrayList, core.ICategory, core.IField)}.
+	 * Test method for {@link stat.NumericStatGenerator#getStdDrvForCategoryAndField(java.util.ArrayList, core.ICategory, core.IField)}.
 	 */
 	@Test
 	final void testGetStdDrvForDomainAndCategoryAndField() {
-		fail("Not yet implemented");
+		ArrayList<IRecord> records = collection.getAllRecordsForCategory(categoryC);
+		Double actual1 = generator.getStdDrvForCategoryAndField(records, categoryC, fieldX);
+		Double expected1 = 5.57;
+		Double actual2 = generator.getStdDrvForCategoryAndField(records, categoryC, fieldY);
+		Double expected2 = 5.57;
+		Double actual3 = generator.getStdDrvForCategoryAndField(records, categoryC, fieldZ);
+		Double expected3 = 5.57;
+		//Can be completed with additional tests
+		assertEquals(expected1, actual1, 0.01);
+		assertEquals(expected2, actual2, 0.01);
+		assertEquals(expected3, actual3, 0.01);
 	}
 
 	/**
@@ -158,7 +203,13 @@ class NumericStatGeneratorTest {
 	 */
 	@Test
 	final void testGetRatioPercentForDomainAndCategory() {
-		fail("Not yet implemented");
+		ArrayList<IRecord> records = collection.getAllRecordsForCategory(categoryC);
+		Double actual1 = generator.getRatioPercentForDomainAndCategory(records, domain1, categoryC, fieldX, fieldZ);
+		Double expected1 = 86.7;
+		Double actual2 = generator.getRatioPercentForDomainAndCategory(records, domain1, categoryC, fieldY, fieldZ);
+		Double expected2 = 93.3;
+		assertEquals(expected1, actual1, 0.1);
+		assertEquals(expected2, actual2, 0.1);
 	}
 
 }

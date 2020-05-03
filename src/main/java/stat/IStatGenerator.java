@@ -61,7 +61,7 @@ public interface IStatGenerator {
 	 * @param field
 	 * @return
 	 */
-	public Double getStdDrvForDomainAndCategoryAndField(ArrayList<IRecord> records, ICategory category, IField field);
+	public Double getStdDrvForCategoryAndField(ArrayList<IRecord> records, ICategory category, IField field);
 	
 	/**
 	 * 

@@ -99,7 +99,7 @@ public class NumericStatGenerator implements IStatGenerator {
 	}
 
 	@Override
-	public Double getStdDrvForDomainAndCategoryAndField(ArrayList<IRecord> records, ICategory category, IField field) {
+	public Double getStdDrvForCategoryAndField(ArrayList<IRecord> records, ICategory category, IField field) {
 		double res = 0.0;
 		int nbRecs = 0;
 		double avgValue = getAvgForCategoryAndField(records, category, field);
@@ -117,7 +117,7 @@ public class NumericStatGenerator implements IStatGenerator {
 		}
 		
 		if(nbRecs > 0) {
-			res = res / nbRecs;
+			res = Math.sqrt(res / nbRecs);
 		}
 		
 		return res;
