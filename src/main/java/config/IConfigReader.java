@@ -18,6 +18,11 @@ public interface IConfigReader {
 
 	/**
 	 * 
+	 */
+	public void init();
+	
+	/**
+	 * 
 	 * @return The list of all domains to consider
 	 */
 	public ArrayList<IDomain> getDomains();

@@ -126,6 +126,7 @@ public class XmlConfigReader implements IConfigReader {
 		}
 	}
 	
+	@Override
 	public void init() {
 		Document doc = this.document;
 		final Element config = (Element) doc.getElementsByTagName(XmlNodes.CONFIG.toString()).item(0);
