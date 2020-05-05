@@ -45,4 +45,16 @@ public interface IConfigReader {
 	 */
 	public ArrayList<IField> getFields();
 	
+	/**
+	 * 
+	 * @return
+	 */
+	public ArrayList<IField> getRawFields();
+	
+	/**
+	 * 	
+	 * @return
+	 */
+	public ArrayList<IField> getPreProcFields();
+	
 }

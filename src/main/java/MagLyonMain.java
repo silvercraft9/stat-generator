@@ -44,7 +44,7 @@ public class MagLyonMain {
 		ArrayList<IDomain> domains = reader.getDomains();
 		ArrayList<ICategory> categories = reader.getCategories();
 		ArrayList<ISubCategory> subCategories = reader.getSubCategories();
-		ArrayList<IField> fields = reader.getFields();
+		
 		
 		IRecorderCollection globalCollection = new NumericRecordCollection();
 		
@@ -55,7 +55,16 @@ public class MagLyonMain {
 			
 			IRecorderCollection domainCollection = new NumericRecordCollection();
 			
-			//String type = domain.getType();
+			String type = domain.getType();
+			ArrayList<IField> fields = new ArrayList<IField>();
+			
+			if(type.equalsIgnoreCase(ConfigValues.RAW.toString())) {
+				fields = reader.getRawFields();
+			}
+			
+			if(type.equalsIgnoreCase(ConfigValues.PREPROC.toString())) {
+				fields = reader.getPreProcFields();
+			}
 			
 			IFileParser parser = new ExcelFileParser(domain, DOMAIN_FOLDER + domainName + ".xlsx");
 			
@@ -68,7 +77,7 @@ public class MagLyonMain {
 				globalCollection.addRecord(record);
 			}
 			
-			int nbCategories = categories.size();
+			
 		}
 		
 		

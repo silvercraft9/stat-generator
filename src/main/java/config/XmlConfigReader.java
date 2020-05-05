@@ -179,4 +179,34 @@ public class XmlConfigReader implements IConfigReader {
 		return this.fields;
 	}
 
+	@Override
+	public ArrayList<IField> getRawFields() {
+		ArrayList<IField> res = new ArrayList<IField>();
+		ArrayList<IField> fields = this.getFields();
+		int n = fields.size();
+		for(int i = 0; i < n; i++) {
+			IField field = fields.get(i);
+			String type = field.getName();
+			if(type.equalsIgnoreCase(ConfigValues.RAW.toString())) {
+				res.add(field);
+			}
+		}
+		return res;
+	}
+
+	@Override
+	public ArrayList<IField> getPreProcFields() {
+		ArrayList<IField> res = new ArrayList<IField>();
+		ArrayList<IField> fields = this.getFields();
+		int n = fields.size();
+		for(int i = 0; i < n; i++) {
+			IField field = fields.get(i);
+			String type = field.getName();
+			if(type.equalsIgnoreCase(ConfigValues.PREPROC.toString())) {
+				res.add(field);
+			}
+		}
+		return res;
+	}
+
 }
