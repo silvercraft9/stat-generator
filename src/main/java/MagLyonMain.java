@@ -63,19 +63,20 @@ public class MagLyonMain {
 			
 			String type = domain.getType();
 			ArrayList<IField> fields = new ArrayList<IField>();
+			ArrayList<IRecord> records = new ArrayList<IRecord>();
+			
+			IFileParser parser = new ExcelFileParser(domain, DOMAIN_FOLDER + domainName + ".xlsx");
 			
 			if(type.equalsIgnoreCase(ConfigValues.RAW.toString())) {
 				fields = reader.getRawFields();
+				records = parser.getRecordsPerSubCategory(subCategories, fields);
 			}
 			
 			if(type.equalsIgnoreCase(ConfigValues.PREPROC.toString())) {
 				fields = reader.getPreProcFields();
+				records = parser.getRecordsPerCategory(categories, fields);
 			}
-			
-			IFileParser parser = new ExcelFileParser(domain, DOMAIN_FOLDER + domainName + ".xlsx");
-			
-			ArrayList<IRecord> records = parser.getRecordsPerSubCategory(subCategories, fields);
-			
+						
 			int nbRecords = records.size();
 			for(int j = 0; j < nbRecords; j++) {
 				IRecord record = records.get(j);

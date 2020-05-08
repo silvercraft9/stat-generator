@@ -105,19 +105,22 @@ public class ExcelFileParser implements IFileParser {
 		Iterator<Row> rowIterator = sheet.iterator();
 		while (rowIterator.hasNext()) {
 			Row row = rowIterator.next();
-			String categoryName = row.getCell(0).getStringCellValue();
-			int categoryIndex = ListUtils.belongToList(categoryNames, categoryName);
-			ICategory category = categories.get(categoryIndex);
-			if(categoryIndex > -1) {
-				for(int i = 0; i < nbField; i++) {
-					String fieldName = fieldNames.get(i);
-					IField field = fields.get(i);
-					Double value = row.getCell(fieldColumns.get(fieldName)).getNumericCellValue();
-					IRecord record = new Record(this.domain, category, null, field, value);
-					result.add(record);
+			Cell cell = row.getCell(0);
+			if(cell != null) {
+				String categoryName = cell.getStringCellValue();
+				int categoryIndex = ListUtils.belongToList(categoryNames, categoryName);
+				System.out.println(categoryName + ", index: " + categoryIndex);
+				ICategory category = categories.get(categoryIndex);
+				if(categoryIndex > -1) {
+					for(int i = 0; i < nbField; i++) {
+						String fieldName = fieldNames.get(i);
+						IField field = fields.get(i);
+						Double value = row.getCell(fieldColumns.get(fieldName)).getNumericCellValue();
+						IRecord record = new Record(this.domain, category, null, field, value);
+						result.add(record);
+					}
 				}
 			}
-			
 		}
 		
 		return result;
@@ -150,6 +153,7 @@ public class ExcelFileParser implements IFileParser {
 			if(cell != null) {
 				String subCategoryName = cell.getStringCellValue();
 				int subCategoryIndex = ListUtils.belongToList(subCategoryNames, subCategoryName);
+				System.out.println(subCategoryName + ", index: " + subCategoryIndex);
 				ISubCategory subCategory = subCategories.get(subCategoryIndex);
 				ICategory category = subCategory.getParent();
 				if(subCategoryIndex > -1) {
