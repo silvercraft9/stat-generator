@@ -17,6 +17,8 @@ import parser.ExcelFileParser;
 import parser.IFileParser;
 import stat.IRecorderCollection;
 import stat.NumericRecordCollection;
+import writer.ExcelWriter;
+import writer.IWriter;
 
 /**
  * 
@@ -29,6 +31,7 @@ import stat.NumericRecordCollection;
 public class MagLyonMain {
 
 	public static String DOMAIN_FOLDER = "dossier_test/";
+	public static String RESULT_FOLDER = "resultat_test/";
 	
 	/**
 	 * @param args
@@ -41,6 +44,7 @@ public class MagLyonMain {
 		IConfigReader reader = new XmlConfigReader();
 		reader.init();
 		
+		
 		ArrayList<IDomain> domains = reader.getDomains();
 		ArrayList<ICategory> categories = reader.getCategories();
 		ArrayList<ISubCategory> subCategories = reader.getSubCategories();
@@ -50,8 +54,10 @@ public class MagLyonMain {
 		
 		int nbDomains = domains.size();
 		for(int i = 0; i < nbDomains; i++) {
+			
 			IDomain domain = domains.get(i);
 			String domainName = domain.getName();
+			IWriter writer = new ExcelWriter(RESULT_FOLDER + "" + domainName + ".xlsx");
 			
 			IRecorderCollection domainCollection = new NumericRecordCollection();
 			
@@ -77,9 +83,11 @@ public class MagLyonMain {
 				globalCollection.addRecord(record);
 			}
 			
+			ArrayList<ArrayList<Object>> toWrite = new ArrayList<ArrayList<Object>>();
+			toWrite.add(writer.getFieldNames(fields));
 			
+			writer.writeData(toWrite);
 		}
-		
 		
 	}
 
