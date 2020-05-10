@@ -28,7 +28,7 @@ import writer.IWriter;
  * @author ro6k4
  *
  */
-public class MagLyonMain {
+public class TestMain {
 
 	public static String DOMAIN_FOLDER = "dossier_test/";
 	public static String RESULT_FOLDER = "resultat_test/";
