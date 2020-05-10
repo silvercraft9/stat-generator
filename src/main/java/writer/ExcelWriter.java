@@ -27,14 +27,29 @@ public class ExcelWriter implements IWriter {
 	public int writeData(ArrayList<ArrayList<Object>> lines) {
 		XSSFSheet sheet = workbook.createSheet("Données");
 		int res = 0; // 0 is the code for nothing written in a file
+		
+		ArrayList<Object> firstLine = lines.get(0);
+		int l = firstLine.size();	
+		Row firstRow = sheet.createRow(0);
+		for(int j = 0; j < l; j++) {
+			int columnIndex = j + 1;// + 1; 
+			Object value = firstLine.get(j);
+			Cell cell = firstRow.createCell(columnIndex);
+            if (value instanceof String) {
+                cell.setCellValue((String) value);
+            } else if (value instanceof Double) {
+                cell.setCellValue((Double) value);
+            }
+		}
+		
 		int n = lines.size();
-		for(int i = 0; i < n; i++) {
+		for(int i = 1; i < n; i++) {
 			ArrayList<Object> line = lines.get(i);
 			int m = line.size();		
-			int lineIndex = i + 1;
+			int lineIndex = i;// + 1;
 			Row row = sheet.createRow(lineIndex);
 			for(int j = 0; j < m; j++) {
-				int columnIndex = j + 1; 
+				int columnIndex = j;// + 1; 
 				Object value = line.get(j);
 				Cell cell = row.createCell(columnIndex);
                 if (value instanceof String) {

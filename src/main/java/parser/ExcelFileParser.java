@@ -109,7 +109,6 @@ public class ExcelFileParser implements IFileParser {
 			if(cell != null) {
 				String categoryName = cell.getStringCellValue();
 				int categoryIndex = ListUtils.belongToList(categoryNames, categoryName);
-				System.out.println(categoryName + ", index: " + categoryIndex);
 				ICategory category = categories.get(categoryIndex);
 				if(categoryIndex > -1) {
 					for(int i = 0; i < nbField; i++) {
@@ -153,7 +152,6 @@ public class ExcelFileParser implements IFileParser {
 			if(cell != null) {
 				String subCategoryName = cell.getStringCellValue();
 				int subCategoryIndex = ListUtils.belongToList(subCategoryNames, subCategoryName);
-				System.out.println(subCategoryName + ", index: " + subCategoryIndex);
 				ISubCategory subCategory = subCategories.get(subCategoryIndex);
 				ICategory category = subCategory.getParent();
 				if(subCategoryIndex > -1) {

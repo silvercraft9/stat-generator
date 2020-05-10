@@ -49,15 +49,15 @@ public class TestMain {
 		ArrayList<ICategory> categories = reader.getCategories();
 		ArrayList<ISubCategory> subCategories = reader.getSubCategories();
 		
-		
 		IRecorderCollection globalCollection = new NumericRecordCollection();
 		
 		int nbDomains = domains.size();
+		//Generating file for each domain with a category granularity
 		for(int i = 0; i < nbDomains; i++) {
 			
 			IDomain domain = domains.get(i);
 			String domainName = domain.getName();
-			IWriter writer = new ExcelWriter(RESULT_FOLDER + "" + domainName + ".xlsx");
+			IWriter writer = new ExcelWriter(RESULT_FOLDER + "" + domainName + "_traité.xlsx");
 			
 			IRecorderCollection domainCollection = new NumericRecordCollection();
 			
@@ -69,12 +69,16 @@ public class TestMain {
 			
 			if(type.equalsIgnoreCase(ConfigValues.RAW.toString())) {
 				fields = reader.getRawFields();
+				//System.out.println("Raw fields : " + fields.size());
 				records = parser.getRecordsPerSubCategory(subCategories, fields);
+				//System.out.println("Records : " + records.size());
 			}
 			
 			if(type.equalsIgnoreCase(ConfigValues.PREPROC.toString())) {
 				fields = reader.getPreProcFields();
+				//System.out.println("Preprocessed fields : " + fields.size());
 				records = parser.getRecordsPerCategory(categories, fields);
+				//System.out.println("Records : " + records.size());
 			}
 						
 			int nbRecords = records.size();
@@ -82,10 +86,30 @@ public class TestMain {
 				IRecord record = records.get(j);
 				domainCollection.addRecord(record);
 				globalCollection.addRecord(record);
+				
 			}
 			
 			ArrayList<ArrayList<Object>> toWrite = new ArrayList<ArrayList<Object>>();
 			toWrite.add(writer.getFieldNames(fields));
+			int nbCategories = categories.size();
+			for(int k = 0; k < nbCategories; k++) {
+				ArrayList<Object> line = new ArrayList<Object>();
+				ICategory category = categories.get(k);
+				line.add(category.getName());
+				int nbFields = fields.size();
+				for(int l = 0; l < nbFields; l++) {
+					IField field = fields.get(l);
+					ArrayList<IRecord> values = domainCollection.getAllRecordsForDomainAndCategoryAndField(domain, category, field);
+					int nbValues = values.size();
+					Double res = 0.0;
+					for(int m = 0; m < nbValues; m++) {
+						IRecord record = values.get(m);
+						res += record.getValue();
+					}
+					line.add(res);
+				}
+				toWrite.add(line);
+			}
 			
 			writer.writeData(toWrite);
 		}

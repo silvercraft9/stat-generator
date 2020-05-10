@@ -183,10 +183,11 @@ public class XmlConfigReader implements IConfigReader {
 	public ArrayList<IField> getRawFields() {
 		ArrayList<IField> res = new ArrayList<IField>();
 		ArrayList<IField> fields = this.getFields();
+		System.out.println("All fields : " + fields.size());
 		int n = fields.size();
 		for(int i = 0; i < n; i++) {
 			IField field = fields.get(i);
-			String type = field.getName();
+			String type = field.getType();
 			if(type.equalsIgnoreCase(ConfigValues.RAW.toString())) {
 				res.add(field);
 			}
@@ -201,7 +202,7 @@ public class XmlConfigReader implements IConfigReader {
 		int n = fields.size();
 		for(int i = 0; i < n; i++) {
 			IField field = fields.get(i);
-			String type = field.getName();
+			String type = field.getType();
 			if(type.equalsIgnoreCase(ConfigValues.PREPROC.toString())) {
 				res.add(field);
 			}
