@@ -67,5 +67,34 @@ public interface IRecorderCollection {
 	 * @return This method returns all records associated to the domain and only the category and the field to consider
 	 */
 	public ArrayList<IRecord> getAllRecordsForDomainAndCategoryAndField(IDomain domain, ICategory category, IField field);
+	
+	/**
+	 * 
+	 * @param domain
+	 * @param category
+	 * @param field
+	 * @return
+	 */
+	public Double getValueForDomainAndCategoryAndField(IDomain domain, ICategory category, IField field);
+	
+	/**
+	 * 
+	 * @param field
+	 * @param part
+	 * @param total
+	 * @param domain
+	 * @param categories
+	 */
+	public void addRatioCategory(IField field, IField part, IField total, IDomain domain, ArrayList<ICategory> categories);
+	
+	/**
+	 * 
+	 * @param field
+	 * @param part
+	 * @param total
+	 * @param domain
+	 * @param categories
+	 */
+	public void addPercentRatioCategory(IField field, IField part, IField total, IDomain domain, ArrayList<ICategory> categories);
 
 }

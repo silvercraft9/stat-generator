@@ -10,7 +10,8 @@ package config;
 public enum ConfigValues {
 
 	RAW("brut"),
-	PREPROC("precalcule");
+	PREPROC("precalcule"),
+	PROC("CALC");
 	
 	private String name = "";
 	

@@ -8,6 +8,7 @@ import org.xml.sax.SAXException;
 import config.ConfigValues;
 import config.IConfigReader;
 import config.XmlConfigReader;
+import core.Field;
 import core.ICategory;
 import core.IDomain;
 import core.IField;
@@ -87,6 +88,18 @@ public class TestMain {
 				domainCollection.addRecord(record);
 				globalCollection.addRecord(record);
 				
+			}
+			if(type.equalsIgnoreCase(ConfigValues.RAW.toString())) {
+				IField champX = fields.get(0);
+				IField champZ = fields.get(2);
+				IField computedField1 = new Field("X/Y", ConfigValues.PROC.toString(), -1);
+				IField computedField2 = new Field("X/Y%", ConfigValues.PROC.toString(), -1);
+				
+				domainCollection.addRatioCategory(computedField1, champX, champZ, domain, categories);
+				domainCollection.addPercentRatioCategory(computedField2, champX, champZ, domain, categories);
+				
+				fields.add(computedField1);
+				fields.add(computedField2);
 			}
 			
 			ArrayList<ArrayList<Object>> toWrite = new ArrayList<ArrayList<Object>>();

@@ -9,6 +9,7 @@ import core.ICategory;
 import core.IDomain;
 import core.IField;
 import core.IRecord;
+import core.Record;
 
 /**
  * @author ro6k4
@@ -114,6 +115,51 @@ public class NumericRecordCollection implements IRecorderCollection {
 			}
 		}
 		return result;
+	}
+	
+	@Override
+	public Double getValueForDomainAndCategoryAndField(IDomain domain, ICategory category, IField field) {
+		Double result = 0.0;
+		ArrayList<IRecord> records = this.getAllRecordsForDomainAndCategoryAndField(domain, category, field);
+		int nbRecords = records.size();
+		for(int i = 0; i < nbRecords; i++) {
+			Double value = records.get(i).getValue();
+			result += value;
+		}
+		return result;
+	}
+
+	@Override
+	public void addRatioCategory(IField field, IField part, IField total, IDomain domain, ArrayList<ICategory> categories) {
+		
+		int n = categories.size();
+		for(int i = 0; i < n; i++) {
+			ICategory category = categories.get(i);
+			
+			
+			Double partValue = this.getValueForDomainAndCategoryAndField(domain, category, part);
+			Double totalValue = this.getValueForDomainAndCategoryAndField(domain, category, total);
+			
+			Double resValue = partValue / totalValue;
+			IRecord record = new Record(domain, category, null, field, resValue);
+			this.addRecord(record);
+		}
+	}
+
+	@Override
+	public void addPercentRatioCategory(IField field, IField part, IField total, IDomain domain, ArrayList<ICategory> categories) {
+		int n = categories.size();
+		for(int i = 0; i < n; i++) {
+			ICategory category = categories.get(i);
+			
+			
+			Double partValue = this.getValueForDomainAndCategoryAndField(domain, category, part);
+			Double totalValue = this.getValueForDomainAndCategoryAndField(domain, category, total);
+			
+			Double resValue = 100 * (partValue / totalValue);
+			IRecord record = new Record(domain, category, null, field, resValue);
+			this.addRecord(record);
+		}
 	}
 	
 }

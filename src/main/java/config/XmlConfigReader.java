@@ -183,7 +183,6 @@ public class XmlConfigReader implements IConfigReader {
 	public ArrayList<IField> getRawFields() {
 		ArrayList<IField> res = new ArrayList<IField>();
 		ArrayList<IField> fields = this.getFields();
-		System.out.println("All fields : " + fields.size());
 		int n = fields.size();
 		for(int i = 0; i < n; i++) {
 			IField field = fields.get(i);
