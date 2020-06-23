@@ -1,13 +1,13 @@
-package main;
 /**
  * 
  */
+package main;
 
 /**
  * @author ro6k4
  *
  */
-public class Mag2LyonCLIMain {
+public class Mag2LyonGUIMain {
 
 	/**
 	 * @param args
